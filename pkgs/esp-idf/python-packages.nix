@@ -14,13 +14,13 @@ with pythonPackages;
 rec {
   idf-component-manager = buildPythonPackage rec {
     pname = "idf-component-manager";
-    version = "1.3.2";
+    version = "1.4.1";
 
     src = fetchFromGitHub {
       owner = "espressif";
       repo = pname;
       rev = "v${version}";
-      sha256 = "sha256-rHZHlvRKMZvvjf3S+nU2lCDXt0Ll4Ek04rdhtfIQ1R0=";
+      sha256 = "sha256-WvJ2wUCDK8js7LicJBOgXwRBhWd2QoUW6CHqjNFY0YI=";
     };
 
     # For some reason, this 404s.
