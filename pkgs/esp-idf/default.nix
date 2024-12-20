@@ -1,5 +1,5 @@
-{ rev ? "v5.3.1"
-, sha256 ? "sha256-hcE4Tr5PTRQjfiRYgvLB1+8sR7KQQ1TnQJqViodGdBw="
+{ rev ? "v5.4-beta2"
+, sha256 ? "sha256-AQVPsa8mFbqRxwRurCKfD5OPq3VzHAEyuuLYfSpLHLU="
 , toolsToInclude ? [
     "xtensa-esp-elf-gdb"
     "riscv32-esp-elf-gdb"
@@ -72,6 +72,7 @@ let
           esp-idf-nvs-partition-gen
           esp-idf-size
           esp-idf-panic-decoder
+          psutil
           pyclang
           argcomplete
 
