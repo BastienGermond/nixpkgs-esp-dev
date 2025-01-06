@@ -33,7 +33,8 @@
 
 let
   src = fetchFromGitHub {
-    owner = "espressif";
+    # owner = "espressif";
+    owner = "BastienGermond";
     repo = "esp-idf";
     rev = rev;
     sha256 = sha256;
