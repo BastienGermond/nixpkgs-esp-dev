@@ -1,9 +1,8 @@
 # Versions based on
-# https://dl.espressif.com/dl/esp-idf/espidf.constraints.v5.5.txt
-# on 2025-07-18.
+# https://dl.espressif.com/dl/esp-idf/espidf.constraints.v6.0.txt
 #
 # Versions found by running this script:
-# ./pkgs/esp-idf/update-python-packages.sh v6.0.1
+# ./pkgs/esp-idf/update-python-packages.sh v6.0.2
 {
   fetchPypi,
   fetchurl,
@@ -13,13 +12,13 @@ with pythonPackages;
 rec {
   idf-component-manager = buildPythonPackage rec {
     pname = "idf-component-manager";
-    version = "3.0.2";
+    version = "3.0.3";
     pyproject = true;
 
     src = fetchPypi {
       inherit version;
       pname = "idf_component_manager";
-      sha256 = "sha256-GZ1MJbJNdCwtuzCYREsorKacEzzUkpDIXeC+AzkWbJQ=";
+      sha256 = "sha256-UU8T9fx/Ssl0+wtD0wQq7Y9zjxkhnaXUDPZ/ibrVX0c=";
     };
 
     build-system = [
@@ -89,7 +88,7 @@ rec {
 
   esptool = buildPythonPackage rec {
     pname = "esptool";
-    version = "5.3.dev2";
+    version = "5.3.1";
     pyproject = true;
 
     build-system = [
@@ -98,7 +97,7 @@ rec {
 
     src = fetchPypi {
       inherit pname version;
-      sha256 = "sha256-EExxdDegGiSJk6qf0bYUUVkelWN/iMmhVe/or0t6XZc=";
+      sha256 = "sha256-EleB825qLQjEhFJKRfNAaUZ1Note7q2dDLIbIDSpHZg=";
     };
 
     doCheck = false;
@@ -133,9 +132,36 @@ rec {
     };
   };
 
+  esp-pylib = buildPythonPackage rec {
+    pname = "esp-pylib";
+    version = "1.1.3";
+    pyproject = true;
+
+    build-system = [
+      setuptools
+    ];
+
+    src = fetchPypi {
+      inherit version;
+      pname = "esp_pylib";
+      sha256 = "sha256-p/Hiqf8oNnivrsb9Yl2lnGiuSNZ3ABpnkj9eUIoXx+g=";
+    };
+
+    doCheck = false;
+
+    propagatedBuildInputs = [
+      rich
+    ];
+
+    meta = {
+      homepage = "https://pypi.org/project/esp-pylib/";
+      description = "Python library for logging, utils and constants for Espressif Systems' Python projects";
+    };
+  };
+
   esp-idf-kconfig = buildPythonPackage rec {
     pname = "esp-idf-kconfig";
-    version = "3.8.1";
+    version = "3.12.0";
     pyproject = true;
 
     build-system = [
@@ -145,14 +171,18 @@ rec {
     src = fetchPypi {
       inherit version;
       pname = "esp_idf_kconfig";
-      sha256 = "sha256-Ska7+/apSvI0dcsYpbomjppD9rnZ7Oj0LLGfs+mz+o8=";
+      sha256 = "sha256-oKvXk6PocshqsKN85UQtWPnl0wNtZBld9/VW14e8/JU=";
     };
 
     doCheck = false;
 
+    # esp-idf-kconfig >=3.9 gained an optional TUI menuconfig backend
+    # (esp-pylib + textual) as a runtime dependency.
     propagatedBuildInputs = [
       rich
       pyparsing
+      esp-pylib
+      textual
     ];
 
     meta = {
@@ -191,7 +221,7 @@ rec {
 
   esp-idf-size = buildPythonPackage rec {
     pname = "esp-idf-size";
-    version = "2.2.0";
+    version = "2.3.1";
     pyproject = true;
 
     build-system = [
@@ -201,14 +231,18 @@ rec {
     src = fetchPypi {
       inherit version;
       pname = "esp_idf_size";
-      sha256 = "sha256-Sxl+j9Ece8Y/TfF51gs2IrQR9epNuTORG4nNpa433d8=";
+      sha256 = "sha256-OU4waWUeCAgYhIdDLDi/+HqOWkkRWf+LSv1Hqzu5wZw=";
     };
 
     doCheck = false;
 
+    # esp-idf-size >=2.3 gained rich-click (CLI) and esp-pylib as runtime
+    # dependencies.
     propagatedBuildInputs = [
       rich
       pyyaml
+      rich-click
+      esp-pylib
     ];
 
     meta = {
@@ -244,7 +278,7 @@ rec {
 
   pyclang = buildPythonPackage rec {
     pname = "pyclang";
-    version = "0.6.3";
+    version = "0.7.0";
     pyproject = true;
 
     build-system = [
@@ -253,10 +287,16 @@ rec {
 
     src = fetchPypi {
       inherit pname version;
-      sha256 = "sha256-CxFRwZhiGfQcuRpXcyQQlejSKD/qqPlHyYnGWE/E1Wo=";
+      sha256 = "sha256-s9SHh7tnSJFk0G7wNDMo1lGDG0Xw62fg/skiHvompfU=";
     };
 
     doCheck = false;
+
+    # pyclang >=0.7 gained rich and esp-pylib as runtime dependencies.
+    propagatedBuildInputs = [
+      rich
+      esp-pylib
+    ];
 
     meta = {
       homepage = "https://pypi.org/project/pyclang/";

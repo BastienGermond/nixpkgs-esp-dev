@@ -1,8 +1,8 @@
 {
   owner ? "espressif",
   repo ? "esp-idf",
-  rev ? "v6.0.1",
-  sha256 ? "sha256-4KJa686qc+u7XkF/GS2o53l1SpwP2EmdqAn/qmlL1yU=",
+  rev ? "v6.0.2",
+  sha256 ? "sha256-dVdJ+aUjMJyWoz+wOwA0R6XH3JRq0VBpC1sAH/aLECs=",
   toolsToInclude ? [
     "xtensa-esp-elf-gdb"
     "riscv32-esp-elf-gdb"
@@ -92,6 +92,9 @@ let
         construct
         rich
         psutil
+        # Transitively required (esp-pylib's "ide" extra) but not reachable
+        # through any package's default (no-extra) dependency set.
+        websockets
 
         tree-sitter
         tree-sitter-grammars.tree-sitter-c

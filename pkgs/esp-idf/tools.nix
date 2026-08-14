@@ -103,6 +103,7 @@ let
 
       # Configure autoPatchelfHook to ignore missing Python libraries that aren't available
       autoPatchelfIgnoreMissingDeps = [
+        "libpython3.14.so.1.0"
         "libpython3.13.so.1.0"
         "libpython3.9.so.1.0"
         "libpython3.8.so.1.0"
