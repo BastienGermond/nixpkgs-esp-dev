@@ -436,4 +436,32 @@ rec {
       description = "Diagnostic tool for ESP-IDF";
     };
   };
+
+  # idf.py needs rich-click ~=1.9 (RichHelpFormatter), older nixpkgs ship 1.8.
+  rich-click = buildPythonPackage rec {
+    pname = "rich-click";
+    version = "1.9.9";
+    pyproject = true;
+
+    src = fetchPypi {
+      inherit version;
+      pname = "rich_click";
+      sha256 = "324cba7513cd4187ee92b2eef21f071714e45be062458c8b157bd7e0c81103e3";
+    };
+
+    build-system = [
+      setuptools
+    ];
+
+    doCheck = false;
+
+    propagatedBuildInputs = [
+      click
+      rich
+    ];
+
+    meta = {
+      homepage = "https://github.com/ewels/rich-click";
+    };
+  };
 }
